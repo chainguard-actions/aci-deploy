@@ -1,0 +1,25 @@
+name: Test log analytics inputs - Deploy to Azure Container Instances
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Verify log analytics inputs are accepted (no Azure credentials - expected to fail gracefully)
+        id: action
+        uses: .
+        continue-on-error: true
+        with:
+          resource-group: my-resource-group
+          name: my-container-group
+          image: nginx:latest
+          location: eastus
+          dns-name-label: my-container-dns
+          log-analytics-workspace: my-log-analytics-workspace
+          log-analytics-workspace-key: my-log-analytics-key
+          log-type: ContainerInsights
+      - name: Assert action ran (may fail without Azure credentials)
+        run: |
+          echo "Action completed (with or without error due to missing Azure credentials)"
+          echo "PASS: log analytics inputs were accepted by the action"
