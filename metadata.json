@@ -1,7 +1,7 @@
 {
   "owner": "azure",
   "name": "aci-deploy",
-  "visibility": "internal",
+  "visibility": "public",
   "description": "Deploy to Containers to Azure Container Instances. github.com/Azure/Actions",
   "block_publish": false
 }
